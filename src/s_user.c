@@ -617,16 +617,12 @@ register_user(aClient *cptr, aClient *sptr, char *nick, char *username,
 
         if (sptr->flags & FLAGS_DOID && !(sptr->flags & FLAGS_GOTID)) 
         {
-#ifdef DO_IDENT
             /* because username may point to user->username */
             char        temp[USERLEN + 1];
             
             strncpyzt(temp, username, USERLEN + 1);
             *user->username = '~';
             (void) strncpy(&user->username[1], temp, USERLEN);
-#else
-            (void) strncpy(user->username, username, USERLEN);
-#endif
             user->username[USERLEN] = '\0';
 #ifdef IDENTD_COMPLAIN
             /* tell them to install identd -Taner */
